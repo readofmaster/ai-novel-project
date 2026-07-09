@@ -1,0 +1,22 @@
+site_name: AI Novel Project
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.sections
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+  - ホーム: index.md
+  - 執筆計画とルール:
+    - プロジェクトについて: README.md
+    - 執筆フロー: docs/rules/NOVEL_WORKFLOW.md
+  - 文書:
+    - あらすじ: docs/PLOT.md
+    - 進捗: docs/PROGRESS.md
