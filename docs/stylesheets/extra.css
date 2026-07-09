@@ -9,24 +9,7 @@ body, .md-typeset {
     margin-bottom: 1.5em !important;
 }
 
-/* 広い画面ではサイドバーを表示 */
-@media screen and (min-width: 76.1875em) {
-    .md-sidebar--primary {
-        display: block !important;
-        position: relative !important;
-        width: 15rem !important;
-    }
-}
-
-/* 狭い画面ではサイドバーを隠して左詰めにする */
-@media screen and (max-width: 76.1875em) {
-    .md-sidebar--primary {
-        display: none !important;
-    }
-    .md-main__inner {
-        grid-template-columns: 1fr !important;
-    }
-    .md-header__button--drawer {
-        display: block !important; /* 必要ならハンバーガーを再表示 */
-    }
+/* 右サイドバー（TOCなど）を非表示にする */
+.md-sidebar--secondary {
+    display: none !important;
 }
