@@ -9,7 +9,7 @@ theme:
 
 nav:
   - ホーム: index.md
-  - あらすじ: docs/PLOT.md
-  - 進捗: docs/PROGRESS.md
-  - 執筆フロー: docs/rules/NOVEL_WORKFLOW.md
+  - あらすじ: PLOT.md
+  - 進捗: PROGRESS.md
+  - 執筆フロー: rules/NOVEL_WORKFLOW.md
   - プロジェクトについて: README.md
