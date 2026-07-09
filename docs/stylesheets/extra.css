@@ -16,6 +16,7 @@ body, .md-typeset {
         position: relative !important;
         width: 15rem !important;
     }
+    /* 追加: アイコンを強制的に非表示にする */
     .md-header__button--drawer {
         display: none !important;
     }
