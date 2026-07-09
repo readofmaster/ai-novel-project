@@ -1,0 +1,25 @@
+/* 小説風の読み心地にするためのCSS */
+body, .md-typeset {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.05em !important;
+}
+
+.md-typeset p {
+    margin-bottom: 1.5em !important;
+}
+
+/* メニューのハンバーガー化を防ぐための調整 */
+@media screen and (max-width: 76.1875em) {
+    .md-sidebar--primary {
+        display: block !important;
+        position: relative !important;
+        width: 15rem !important;
+    }
+    .md-header__button--drawer {
+        display: none !important;
+    }
+    .md-main__inner {
+        grid-template-columns: 15rem 1fr !important;
+    }
+}

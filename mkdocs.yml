@@ -4,8 +4,12 @@ use_directory_urls: false
 theme:
   name: material
   language: ja
+  custom_dir: docs/stylesheets
   features:
     - navigation.expand
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - ホーム: index.md
