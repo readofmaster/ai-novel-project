@@ -2,9 +2,8 @@ name: Daily Novel Routine
 
 on:
   schedule:
-    # 日本時間午前5時はUTCの午後8時
     - cron: '0 20 * * *'
-  workflow_dispatch: # 手動実行も可能にする
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -21,7 +20,7 @@ jobs:
           python-version: '3.10'
           
       - name: Install dependencies
-        run: pip install google-generativeai
+        run: pip install -U google-generativeai
         
       - name: Generate Content
         env:
@@ -29,10 +28,10 @@ jobs:
         run: python scripts/generate_content.py
         
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "Add daily novel content"
           branch: daily-update
-          title: "デイリー小説更新: ${{ github.event.schedule }}"
+          title: "デイリー小説更新"
           body: "AIによって自動生成された小説の執筆内容、編集者の指摘、読者の感想です。"
           token: ${{ secrets.GITHUB_TOKEN }}
