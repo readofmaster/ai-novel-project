@@ -7,6 +7,12 @@ theme:
   custom_dir: docs/stylesheets
   features:
     - navigation.expand
+    - content.code.annotate
+    - content.code.copy
+
+extra:
+  font:
+    text: "Yu Mincho"
 
 extra_css:
   - stylesheets/extra.css
