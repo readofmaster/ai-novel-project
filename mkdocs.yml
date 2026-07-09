@@ -1,23 +1,15 @@
 site_name: AI Novel Project
 site_url: https://readofmaster.github.io/ai-novel-project/
+use_directory_urls: false
 theme:
   name: material
   language: ja
   features:
-    - navigation.sections
-
-markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
+    - navigation.expand
 
 nav:
   - ホーム: index.md
-  - 執筆計画とルール:
-    - プロジェクトについて: README.md
-    - 執筆フロー: docs/rules/NOVEL_WORKFLOW.md
-  - 文書:
-    - あらすじ: docs/PLOT.md
-    - 進捗: docs/PROGRESS.md
+  - あらすじ: docs/PLOT.md
+  - 進捗: docs/PROGRESS.md
+  - 執筆フロー: docs/rules/NOVEL_WORKFLOW.md
+  - プロジェクトについて: README.md
