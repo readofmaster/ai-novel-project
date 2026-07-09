@@ -13,3 +13,14 @@ body, .md-typeset {
 .md-sidebar--secondary {
     display: none !important;
 }
+
+/* メニューを常にヘッダーに表示し、ハンバーガー化を防ぐ */
+.md-header__button--drawer {
+    display: none !important;
+}
+
+@media screen and (max-width: 76.1875em) {
+    .md-tabs {
+        display: block !important;
+    }
+}
