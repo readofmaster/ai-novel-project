@@ -22,6 +22,17 @@ jobs:
       - name: Install dependencies
         run: pip install -U google-generativeai pyyaml
         
+      - name: Get PR Comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head daily-update --json number --jq '.[0].number' || echo "")
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr view $PR_NUMBER --json comments --jq '.comments[].body' > feedback.txt
+          else
+            touch feedback.txt
+          fi
+        
       - name: Generate Content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

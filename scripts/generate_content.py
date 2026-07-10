@@ -27,6 +27,12 @@ def generate_chapter():
     chapter = get_progress()
     plot = get_plot()
     
+    # フィードバックの読み込み
+    feedback = ""
+    if os.path.exists('feedback.txt'):
+        with open('feedback.txt', 'r', encoding='utf-8') as f:
+            feedback = f.read()
+    
     # プロンプトの構築
     prompt = f"""
     あなたは小説家です。以下の全体プロットに基づき、第{chapter}章を執筆してください。
@@ -34,7 +40,11 @@ def generate_chapter():
     ## 全体プロット
     {plot}
     
+    ## 前回のPRでのフィードバック
+    {feedback if feedback else "特になし"}
+    
     ## 今日の執筆指示 (第{chapter}章)
+    - 上記のフィードバックがある場合は、それを反映させて執筆してください。
     - 雰囲気: ライト、ポップ、明るいコメディ。
     - ジャンル: 現代または未来を舞台にした、隣人との庭いじりバトル。
     - 注意点: AIという言葉や概念には一切言及しないでください。
