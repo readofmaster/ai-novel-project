@@ -22,16 +22,22 @@ jobs:
       - name: Install dependencies
         run: pip install -U google-generativeai pyyaml
         
-      - name: Get PR Comments
+      - name: Get Feedback and Issues
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Get PR Comments
           PR_NUMBER=$(gh pr list --head daily-update --json number --jq '.[0].number' || echo "")
           if [ -n "$PR_NUMBER" ]; then
             gh pr view $PR_NUMBER --json comments --jq '.comments[].body' > feedback.txt
           else
             touch feedback.txt
           fi
+          
+          # Append Open Issues
+          echo -e "\n\n--- Open Issues ---\n" >> feedback.txt
+          gh issue list --json number,title,body --jq '.[] | "Issue #\(.number): \(.title)\n\(.body)\n---"' >> feedback.txt
+
         
       - name: Generate Content
         env:
