@@ -6,6 +6,8 @@ on:
       - master
 permissions:
   contents: write
+  pages: write
+  id-token: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,6 +21,7 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install mkdocs-material
-      # デバッグ用にビルドとデプロイを分けます
       - run: mkdocs build
-      - run: mkdocs gh-deploy --force
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --force --remote-name origin --remote-branch gh-pages
