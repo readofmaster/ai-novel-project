@@ -9,7 +9,9 @@
 ## GitHub 統計
 <!-- AUTO_STATS_START -->
 - オープンPR数: 0
+- クローズされたPR数: 0
 - オープンIssue数: 0
+- クローズされたIssue数: 0
 <!-- AUTO_STATS_END -->
 
 ## 完了したマイルストーン
