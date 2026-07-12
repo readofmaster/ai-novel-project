@@ -23,4 +23,4 @@
 - [docs/rules/NOVEL_WORKFLOW.md](rules/NOVEL_WORKFLOW.md)
 
 ## ライセンス
-このプロジェクトは [MIT License](../LICENSE) の下で公開されています。
+このプロジェクトは [MIT License](https://github.com/readofmaster/ai-novel-project/blob/main/LICENSE) の下で公開されています。
