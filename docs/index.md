@@ -20,7 +20,7 @@
 
 ## ワークフローと規約
 プロジェクトのルールについては、以下を参照してください。
-- [docs/rules/NOVEL_WORKFLOW.md](docs/rules/NOVEL_WORKFLOW.md)
+- [docs/rules/NOVEL_WORKFLOW.md](rules/NOVEL_WORKFLOW.md)
 
 ## ライセンス
-このプロジェクトは [MIT License](LICENSE) の下で公開されています。
+このプロジェクトは [MIT License](../LICENSE) の下で公開されています。
