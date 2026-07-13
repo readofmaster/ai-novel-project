@@ -16,7 +16,8 @@ def get_progress():
         content = f.read()
     
     # "- **執筆中**: 第2章「庭いじりの夜明け」" のような行から数字を取得
-    match = re.search(r'執筆中**: 第(\d+)章', content)
+    # Asterisks need to be escaped as they are special regex characters
+    match = re.search(r'執筆中\*\*: 第(\d+)章', content)
     if match:
         return int(match.group(1))
     return 1 # デフォルト
@@ -26,7 +27,7 @@ def update_progress(chapter):
         content = f.read()
     
     # 章番号を更新
-    new_content = re.sub(r'(執筆中**: 第)\d+(章)', rf'\g<1>{chapter + 1}\g<2>', content)
+    new_content = re.sub(r'(執筆中\*\*: 第)\d+(章)', rf'\g<1>{chapter + 1}\g<2>', content)
     
     with open('docs/PROGRESS.md', 'w', encoding='utf-8') as f:
         f.write(new_content)
