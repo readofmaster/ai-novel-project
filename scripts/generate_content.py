@@ -9,7 +9,7 @@ api_key = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
 # モデル指定
-MODEL_ID = 'gemini-1.5-flash' # 2.0-flashのクォータ制限を避けるため1.5-flashを使用
+MODEL_ID = 'gemini-3.1-flash-lite' # 指定されたモデルを使用
 
 def get_progress():
     with open('docs/PROGRESS.md', 'r', encoding='utf-8') as f:
