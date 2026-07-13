@@ -20,7 +20,7 @@ jobs:
           python-version: '3.10'
           
       - name: Install dependencies
-        run: pip install -U google-generativeai pyyaml
+        run: pip install -U google-genai pyyaml
         
       - name: Get Feedback and Issues
         env:

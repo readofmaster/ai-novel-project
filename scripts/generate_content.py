@@ -1,23 +1,35 @@
 import os
-import yaml
+import re
 from datetime import datetime
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 # APIキーを環境変数から取得
 api_key = os.environ.get("GEMINI_API_KEY")
-genai.configure(api_key=api_key)
+client = genai.Client(api_key=api_key)
 
 # モデル指定
-model = genai.GenerativeModel('models/gemini-3.1-flash-lite')
+MODEL_ID = 'gemini-2.0-flash' # flash-liteの代替として標準的なflashを使用
 
 def get_progress():
     with open('docs/PROGRESS.md', 'r', encoding='utf-8') as f:
-        data = yaml.safe_load(f)
-    return data['current_chapter']
+        content = f.read()
+    
+    # "- **執筆中**: 第2章「庭いじりの夜明け」" のような行から数字を取得
+    match = re.search(r'執筆中**: 第(\d+)章', content)
+    if match:
+        return int(match.group(1))
+    return 1 # デフォルト
 
 def update_progress(chapter):
+    with open('docs/PROGRESS.md', 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # 章番号を更新
+    new_content = re.sub(r'(執筆中**: 第)\d+(章)', rf'\g<1>{chapter + 1}\g<2>', content)
+    
     with open('docs/PROGRESS.md', 'w', encoding='utf-8') as f:
-        yaml.dump({'current_chapter': chapter + 1}, f)
+        f.write(new_content)
 
 def get_plot():
     with open('docs/PLOT.md', 'r', encoding='utf-8') as f:
@@ -63,7 +75,10 @@ def generate_chapter():
     (読みやすさや笑いのツボに関する感想)
     """
     
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model=MODEL_ID,
+        contents=prompt,
+    )
     
     # コンテンツの保存
     os.makedirs('daily-report', exist_ok=True)
