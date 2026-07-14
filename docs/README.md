@@ -9,6 +9,14 @@
 - AIと人間が協調して物語を創り上げるプロセスを探索する
 - 小説の執筆から管理までのワークフローを最適化する
 
+## About this Project (英語概要)
+This is an experimental project aimed at exploring the collaborative process of writing and managing novels with AI.
+Anyone is free to view and use this project. Contributions are also welcome!
+
+### Objectives
+- To explore the collaborative process between AI and humans in storytelling.
+- To optimize the workflow from writing to managing novels.
+
 ## 現在の執筆計画
 第一弾として、以下のペースで文章作成を進めています。
 
@@ -27,3 +35,4 @@
 
 ## ライセンス
 このプロジェクトは [MIT License](LICENSE) の下で公開されています。
+This project is licensed under the [MIT License](LICENSE).
