@@ -81,14 +81,23 @@ def generate_chapter():
         contents=prompt,
     )
     
-    # コンテンツの保存
+    # コンテンツの保存（デイリーレポート）
     os.makedirs('daily-report', exist_ok=True)
     today = datetime.now().strftime('%Y-%m-%d')
-    filename = f'daily-report/{today}_chapter_{chapter}.md'
-    with open(filename, 'w', encoding='utf-8') as f:
+    daily_filename = f'daily-report/{today}_chapter_{chapter}.md'
+    with open(daily_filename, 'w', encoding='utf-8') as f:
         f.write(response.text)
     
-    print(f"Generated: {filename}")
+    print(f"Generated: {daily_filename}")
+    
+    # コンテンツの保存（章ファイルへ自動統合）
+    os.makedirs('docs/novel', exist_ok=True)
+    chapter_filename = f'docs/novel/chapter{chapter}.md'
+    with open(chapter_filename, 'w', encoding='utf-8') as f:
+        f.write(response.text)
+    
+    print(f"Updated: {chapter_filename}")
+    
     update_progress(chapter)
 
 if __name__ == "__main__":
