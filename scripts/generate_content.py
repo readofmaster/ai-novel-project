@@ -66,7 +66,7 @@ def generate_chapter():
     
     ## 出力フォーマット
     ---
-    ## 第{chapter}章: (タイトル)
+    # 第{chapter}章：(タイトル)
     (執筆内容)
     
     ## 編集者の指摘
