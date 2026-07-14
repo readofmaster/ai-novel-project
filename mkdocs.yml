@@ -8,6 +8,7 @@ theme:
   features:
     - navigation.tabs # ナビゲーションをヘッダーに配置
     - navigation.tabs.sticky
+    - navigation.sections # セクションの展開を改善
     - content.code.annotate
     - content.code.copy
   palette:
