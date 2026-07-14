@@ -1,5 +1,8 @@
 ![バッジ](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2Freadofmaster%2Fai-novel-project&label=&icon=github&color=%23198754&message=&style=flat&tz=Asia%2FTokyo)
 
+If you like this project, please give it a star! ⭐
+もし面白そうだなと思ったらStarを押してね！🌟
+
 # AI Novel Project
 
 このプロジェクトは、AIと協力して小説を執筆・管理するための実験的プロジェクトです。
