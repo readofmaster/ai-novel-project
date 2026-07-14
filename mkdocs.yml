@@ -23,7 +23,7 @@ extra_css:
 
 nav:
   - ホーム: index.md
-  小説を読む:
+  - 小説を読む:
     - 第1章: novel/chapter1.md
     - 第2章: novel/chapter2.md
   - あらすじ: PLOT.md
