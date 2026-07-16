@@ -68,12 +68,6 @@ def generate_chapter():
     ---
     # 第{chapter}章：(タイトル)
     (執筆内容)
-    
-    ## 編集者の指摘
-    (テンポやコメディ要素に関する鋭い指摘)
-    
-    ## 読者の感想
-    (読みやすさや笑いのツボに関する感想)
     """
     
     response = client.models.generate_content(
