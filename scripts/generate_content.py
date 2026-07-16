@@ -98,6 +98,17 @@ def generate_chapter():
     
     print(f"Updated: {chapter_filename}")
     
+    # 小説一覧に自動追加
+    readme_path = 'docs/novel/README.md'
+    # タイトルを抽出
+    title_match = re.search(r'# 第\d+章：(.+)', response.text)
+    title = title_match.group(1) if title_match else f"第{chapter}章"
+    
+    with open(readme_path, 'a', encoding='utf-8') as f:
+        f.write(f"\n- [第{chapter}章：{title}](chapter{chapter}.md)")
+    
+    print(f"Added to {readme_path}")
+    
     update_progress(chapter)
 
 if __name__ == "__main__":
