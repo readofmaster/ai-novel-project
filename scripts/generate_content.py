@@ -94,10 +94,17 @@ def generate_chapter():
     os.makedirs('docs/novel', exist_ok=True)
     chapter_filename = f'docs/novel/chapter{chapter}.md'
     
-    # 本文のみを抽出 (第N章〜## 編集者の指摘の間)
-    body_match = re.search(r'(# 第\d+章：.+?)(?=\n\n## 編集者の指摘)', response.text, re.DOTALL)
-    body_content = body_match.group(1).strip() if body_match else response.text
-    
+    # 改善された抽出ロジック
+    # 1. まず --- で区切られているか確認
+    parts = response.text.split('---')
+    if len(parts) >= 2:
+        # 最初の --- の次が本文である可能性が高い
+        body_content = parts[1].strip()
+    else:
+        # 2. 従来通り ## 編集者の指摘 で分割
+        body_match = re.split(r'\n\n## 編集者の指摘', response.text, flags=re.DOTALL)
+        body_content = body_match[0].strip()
+        
     with open(chapter_filename, 'w', encoding='utf-8') as f:
         f.write(body_content)
     
