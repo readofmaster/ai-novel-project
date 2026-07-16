@@ -34,8 +34,24 @@ def update_progress(chapter):
     new_content = re.sub(r'(\*\*)\d+(%)\*\* 完了', rf'\g<1>{new_percentage}\g<2>** 完了', new_content)
     
     # 3. 完了したマイルストーンにチェックを入れる
-    # 現在の章の完了フラグを追加
-    new_content = re.sub(r'## 完了したマイルストーン', rf'## 完了したマイルストーン\n- [x] 第{chapter}章 執筆・校閲・統合完了', new_content)
+    if f'- [x] 第{chapter}章' not in new_content:
+        new_content = re.sub(r'## 完了したマイルストーン', rf'## 完了したマイルストーン\n- [x] 第{chapter}章 執筆・校閲・統合完了', new_content)
+    
+    # 4. GitHub統計を更新
+    # 実際にはGitHub Actions側で取得した値を環境変数などで渡すのが望ましいが、
+    # ここではコマンドを実行して取得する
+    import subprocess
+    
+    def get_stat(cmd):
+        return subprocess.check_output(cmd, shell=True).decode().strip()
+        
+    open_pr = get_stat("gh pr list --state open --json number --jq 'length'")
+    closed_pr = get_stat("gh pr list --state closed --json number --jq 'length'")
+    open_issue = get_stat("gh issue list --state open --json number --jq 'length'")
+    closed_issue = get_stat("gh issue list --state closed --json number --jq 'length'")
+    
+    stats_text = f"## GitHub 統計\n- PR数　オープン {open_pr} / クローズ {closed_pr}\n- Issue数　オープン {open_issue} / クローズ {closed_issue}"
+    new_content = re.sub(r'## GitHub 統計.*', stats_text, new_content, flags=re.DOTALL)
     
     with open('docs/PROGRESS.md', 'w', encoding='utf-8') as f:
         f.write(new_content)
