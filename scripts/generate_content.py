@@ -26,8 +26,16 @@ def update_progress(chapter):
     with open('docs/PROGRESS.md', 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # 章番号を更新
+    # 1. 執筆中の章番号を更新
     new_content = re.sub(r'(執筆中\*\*: 第)\d+(章)', rf'\g<1>{chapter + 1}\g<2>', content)
+    
+    # 2. 全体進捗のパーセンテージを更新 (現在の章 * 10)
+    new_percentage = chapter * 10
+    new_content = re.sub(r'(\*\*)\d+(%)\*\* 完了', rf'\g<1>{new_percentage}\g<2>** 完了', new_content)
+    
+    # 3. 完了したマイルストーンにチェックを入れる
+    # 現在の章の完了フラグを追加
+    new_content = re.sub(r'## 完了したマイルストーン', rf'## 完了したマイルストーン\n- [x] 第{chapter}章 執筆・校閲・統合完了', new_content)
     
     with open('docs/PROGRESS.md', 'w', encoding='utf-8') as f:
         f.write(new_content)
