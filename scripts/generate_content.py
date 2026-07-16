@@ -68,6 +68,12 @@ def generate_chapter():
     ---
     # 第{chapter}章：(タイトル)
     (執筆内容)
+    
+    ## 編集者の指摘
+    (テンポやコメディ要素に関する鋭い指摘)
+    
+    ## 読者の感想
+    (読みやすさや笑いのツボに関する感想)
     """
     
     response = client.models.generate_content(
@@ -75,7 +81,7 @@ def generate_chapter():
         contents=prompt,
     )
     
-    # コンテンツの保存（デイリーレポート）
+    # コンテンツの保存（デイリーレポート：すべて含む）
     os.makedirs('daily-report', exist_ok=True)
     today = datetime.now().strftime('%Y-%m-%d')
     daily_filename = f'daily-report/{today}_chapter_{chapter}.md'
@@ -84,11 +90,16 @@ def generate_chapter():
     
     print(f"Generated: {daily_filename}")
     
-    # コンテンツの保存（章ファイルへ自動統合）
+    # コンテンツの保存（章ファイルへ自動統合：本文のみ）
     os.makedirs('docs/novel', exist_ok=True)
     chapter_filename = f'docs/novel/chapter{chapter}.md'
+    
+    # 本文のみを抽出 (第N章〜## 編集者の指摘の間)
+    body_match = re.search(r'(# 第\d+章：.+?)(?=\n\n## 編集者の指摘)', response.text, re.DOTALL)
+    body_content = body_match.group(1).strip() if body_match else response.text
+    
     with open(chapter_filename, 'w', encoding='utf-8') as f:
-        f.write(response.text)
+        f.write(body_content)
     
     print(f"Updated: {chapter_filename}")
     
