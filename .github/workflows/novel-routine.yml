@@ -38,27 +38,10 @@ jobs:
           echo -e "\n\n--- Open Issues ---\n" >> feedback.txt
           gh issue list --json number,title,body --jq '.[] | "Issue #\(.number): \(.title)\n\(.body)\n---"' >> feedback.txt
 
-      - name: Update Progress Stats
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # 統計情報を取得
-          OPEN_PR_COUNT=$(gh pr list --state open --json number --jq 'length')
-          CLOSED_PR_COUNT=$(gh pr list --state closed --json number --jq 'length')
-          OPEN_ISSUE_COUNT=$(gh issue list --state open --json number --jq 'length')
-          CLOSED_ISSUE_COUNT=$(gh issue list --state closed --json number --jq 'length')
-
-          # 統計情報をMDに書き込む
-          sed -i "/<!-- AUTO_STATS_START -->/,/<!-- AUTO_STATS_END -->/{
-            /<!-- AUTO_STATS_START -->/a - オープンPR数: $OPEN_PR_COUNT\n- クローズされたPR数: $CLOSED_PR_COUNT\n- オープンIssue数: $OPEN_ISSUE_COUNT\n- クローズされたIssue数: $CLOSED_ISSUE_COUNT
-            /<!-- AUTO_STATS_START -->/d
-            /<!-- AUTO_STATS_END -->/d
-          }" docs/PROGRESS.md
-
-        
       - name: Generate Content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/generate_content.py
         
       - name: Create Pull Request

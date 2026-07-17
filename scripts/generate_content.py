@@ -42,13 +42,28 @@ def update_progress(chapter):
     # ここではコマンドを実行して取得する
     import subprocess
     
-    def get_stat(cmd):
-        return subprocess.check_output(cmd, shell=True).decode().strip()
+    # 既存の統計情報を正規表現でパースしておく（フォールバック用）
+    open_pr_match = re.search(r'- PR数　オープン (\d+)', content)
+    closed_pr_match = re.search(r'- PR数　オープン \d+ / クローズ (\d+)', content)
+    open_issue_match = re.search(r'- Issue数　オープン (\d+)', content)
+    closed_issue_match = re.search(r'- Issue数　オープン \d+ / クローズ (\d+)', content)
+    
+    fallback_open_pr = open_pr_match.group(1) if open_pr_match else "0"
+    fallback_closed_pr = closed_pr_match.group(1) if closed_pr_match else "0"
+    fallback_open_issue = open_issue_match.group(1) if open_issue_match else "0"
+    fallback_closed_issue = closed_issue_match.group(1) if closed_issue_match else "0"
+    
+    def get_stat(cmd, fallback_val):
+        try:
+            return subprocess.check_output(cmd, shell=True).decode().strip()
+        except Exception as e:
+            print(f"Warning: Failed to execute command '{cmd}'. Using fallback: {fallback_val}. Error: {e}")
+            return fallback_val
         
-    open_pr = get_stat("gh pr list --state open --json number --jq 'length'")
-    closed_pr = get_stat("gh pr list --state closed --json number --jq 'length'")
-    open_issue = get_stat("gh issue list --state open --json number --jq 'length'")
-    closed_issue = get_stat("gh issue list --state closed --json number --jq 'length'")
+    open_pr = get_stat("gh pr list --state open --json number --jq 'length'", fallback_open_pr)
+    closed_pr = get_stat("gh pr list --state closed --json number --jq 'length'", fallback_closed_pr)
+    open_issue = get_stat("gh issue list --state open --json number --jq 'length'", fallback_open_issue)
+    closed_issue = get_stat("gh issue list --state closed --json number --jq 'length'", fallback_closed_issue)
     
     stats_text = f"## GitHub 統計\n- PR数　オープン {open_pr} / クローズ {closed_pr}\n- Issue数　オープン {open_issue} / クローズ {closed_issue}"
     new_content = re.sub(r'## GitHub 統計.*', stats_text, new_content, flags=re.DOTALL)
