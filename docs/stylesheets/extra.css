@@ -1,8 +1,19 @@
 /* 小説風の読み心地にするためのCSS */
 body, .md-typeset {
-    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
     line-height: 1.8 !important;
     letter-spacing: 0.05em !important;
+}
+
+.font-mincho {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
+}
+.font-gothic {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "MS PGothic", sans-serif !important;
+}
+
+/* Default font */
+body {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
 }
 
 .md-typeset p {

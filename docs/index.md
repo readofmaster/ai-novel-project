@@ -3,6 +3,10 @@
 このプロジェクトは、AIと協力して小説を執筆・管理するための実験的プロジェクトです。
 どなたでも自由に閲覧・利用できます。プロジェクトへの貢献も歓迎します！
 
+## フォント設定
+<button onclick="document.body.className = 'font-mincho'">明朝体</button>
+<button onclick="document.body.className = 'font-gothic'">ゴシック体</button>
+
 ## プロジェクトの目的
 - AIと人間が協調して物語を創り上げるプロセスを探索する
 - 小説の執筆から管理までのワークフローを最適化する
