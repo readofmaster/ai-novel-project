@@ -1,8 +1,20 @@
 import os
 import re
+import logging
 from datetime import datetime
 from google import genai
 from google.genai import types
+
+# ログ設定
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("novel.log", encoding="utf-8"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 # APIキーを環境変数から取得
 api_key = os.environ.get("GEMINI_API_KEY")
@@ -57,7 +69,7 @@ def update_progress(chapter):
         try:
             return subprocess.check_output(cmd, shell=True).decode().strip()
         except Exception as e:
-            print(f"Warning: Failed to execute command '{cmd}'. Using fallback: {fallback_val}. Error: {e}")
+            logger.warning(f"Failed to execute command '{cmd}'. Using fallback: {fallback_val}. Error: {e}")
             return fallback_val
         
     open_pr = get_stat("gh pr list --state open --json number --jq 'length'", fallback_open_pr)
@@ -127,7 +139,7 @@ def generate_chapter():
     with open(daily_filename, 'w', encoding='utf-8') as f:
         f.write(response.text)
     
-    print(f"Generated: {daily_filename}")
+    logger.info(f"Generated: {daily_filename}")
     
     # コンテンツの保存（章ファイルへ自動統合：本文のみ）
     os.makedirs('docs/novel', exist_ok=True)
@@ -147,7 +159,7 @@ def generate_chapter():
     with open(chapter_filename, 'w', encoding='utf-8') as f:
         f.write(body_content)
     
-    print(f"Updated: {chapter_filename}")
+    logger.info(f"Updated: {chapter_filename}")
     
     # 小説一覧に自動追加
     readme_path = 'docs/novel/README.md'
@@ -158,9 +170,14 @@ def generate_chapter():
     with open(readme_path, 'a', encoding='utf-8') as f:
         f.write(f"\n- [第{chapter}章：{title}](chapter{chapter}.md)")
     
-    print(f"Added to {readme_path}")
+    logger.info(f"Added to {readme_path}")
     
     update_progress(chapter)
+    
+    # 処理完了後にフィードバックファイルを削除
+    if os.path.exists('feedback.txt'):
+        os.remove('feedback.txt')
+        logger.info("Deleted feedback.txt for security.")
 
 if __name__ == "__main__":
     generate_chapter()
