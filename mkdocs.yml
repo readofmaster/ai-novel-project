@@ -26,9 +26,12 @@ nav:
   - ホーム: index.md
   - 小説を読む:
     - 概要: novel/README.md
+    - 登場人物紹介: novel/characters.md
     - 第1章: novel/chapter1.md
     - 第2章: novel/chapter2.md
     - 第3章: novel/chapter3.md
+    - 第4章: novel/chapter4.md
+    - 第5章: novel/chapter5.md
   - あらすじ: PLOT.md
   - 進捗: PROGRESS.md
   - 執筆フロー: rules/NOVEL_WORKFLOW.md
