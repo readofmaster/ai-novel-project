@@ -1,0 +1,37 @@
+/* 小説風の読み心地にするためのCSS */
+body, .md-typeset {
+    line-height: 1.8 !important;
+    letter-spacing: 0.05em !important;
+}
+
+.font-mincho {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
+}
+.font-gothic {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "MS PGothic", sans-serif !important;
+}
+
+/* Default font */
+body {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
+}
+
+.md-typeset p {
+    margin-bottom: 1.5em !important;
+}
+
+/* 右サイドバー（TOCなど）を非表示にする */
+.md-sidebar--secondary {
+    display: none !important;
+}
+
+/* メニューを常にヘッダーに表示し、ハンバーガー化を防ぐ */
+.md-header__button--drawer {
+    display: none !important;
+}
+
+@media screen and (max-width: 76.1875em) {
+    .md-tabs {
+        display: block !important;
+    }
+}
